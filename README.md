@@ -13,11 +13,13 @@
 - 实现代码：<br>
 ```
 # 计算代价函数
-def computerCost(X,y,theta):
+import numpy as np
+
+def computeCost(X, y, theta):
     m = len(y)
-    J = 0
-    
-    J = (np.transpose(X*theta-y))*(X*theta-y)/(2*m) #计算代价J
-    return J
+    errors = X @ theta - y  # 矩阵乘法，得到预测误差
+    cost = (errors.T @ errors) / (2 * m)
+    return cost.item()  # 提取标量
+
 ```
 - 注意这里的X是真实数据前加了一列1，因为有theta(0)<br>
