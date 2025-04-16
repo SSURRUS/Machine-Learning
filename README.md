@@ -38,8 +38,9 @@ def computeCost(X, y, theta):
 - 可以看出，α是取得很小的正数，[f'(x)]²也是正数，所以可以得出：f(x+△x)<=f(x)
 - 所以沿着负梯度放下，函数在减小，多维情况一样
 - 实现代码
+```
 - # 梯度下降算法
- ```
+ 
 def gradientDescent(X,y,theta,alpha,num_iters):
     m = len(y)      
     n = len(theta)
