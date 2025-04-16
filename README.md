@@ -81,6 +81,31 @@ def featureNormaliza(X):
 - 注意预测的时候也需要均值归一化数据
 
   ### 4、最终运行结果
-  - 代价随迭代次数的变化
+  - 代价随迭代次数的变化<br>
   ![image](https://github.com/user-attachments/assets/f1eb2473-b415-4811-abab-8abbb3593316)
 
+### 5、使用scikit-learn库中的线性模型实现
+- 导入包
+```
+   from sklearn import linear_model
+   from sklearn.preprocessing import StandardScaler    #引入缩放的包
+```
+- 归一化
+```
+    # 归一化操作
+    scaler = StandardScaler()   
+    scaler.fit(X)
+    x_train = scaler.transform(X)
+    x_test = scaler.transform(np.array([1650,3]))
+```
+- 线性模型拟合
+```
+    # 线性模型拟合
+    model = linear_model.LinearRegression()
+    model.fit(x_train, y)
+```
+- 预测
+```
+    #预测结果
+    result = model.predict(x_test)
+```
