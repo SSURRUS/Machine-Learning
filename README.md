@@ -129,7 +129,8 @@ ts/assets/f4f624d6-c039-4115-8bc3-5facfb64fc44)
 - \frac{{\partial J(\theta )}}{{\partial {\theta j}}} = \frac{1}{m}\sum\limits{i = 1}^m {[({h_\theta }({x^{(i)}}) - {y^{(i)}})x_j^{(i)}]}
 - 可以看出来与线性回归的偏导数一致
 - 推导过程
-- ![Uploading 47ea63047cae20b4a364a9553f750c8.png…]()
+- ![image](https://github.com/user-attachments/assets/4d7dbfa1-a1d0-4693-9260-e34b1a5c675c)
+
 
 
 
