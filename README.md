@@ -57,3 +57,25 @@ def gradientDescent(X,y,theta,alpha,num_iters):
         print '.',      
     return theta,J_history
 ```
+### 3、均值归一化
+- 目的是使数据都缩放在一个范围内，便于使用梯度下降算法
+- {x_i} = \frac{{{x_i} - {\mu _i}}}{{{s_i}}}
+- 其中{{\mu _i}}为所有此feture数据的平均值
+- {{s_i}}可以是最大值-最小值，也可以是这个feature对应的数据的标准差
+- 实现代码
+ ```
+  # 归一化feature
+def featureNormaliza(X):
+    X_norm = np.array(X)            #将X转化为numpy数组对象，才可以进行矩阵的运算
+    #定义所需变量
+    mu = np.zeros((1,X.shape[1]))   
+    sigma = np.zeros((1,X.shape[1]))
+    
+    mu = np.mean(X_norm,0)          # 求每一列的平均值（0指定为列，1代表行）
+    sigma = np.std(X_norm,0)        # 求每一列的标准差
+    for i in range(X.shape[1]):     # 遍历列
+        X_norm[:,i] = (X_norm[:,i]-mu[i])/sigma[i]  # 归一化
+    
+    return X_norm,mu,sigma
+ ```
+- 注意预测的时候也需要均值归一化数据
