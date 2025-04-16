@@ -3,7 +3,7 @@
 
 # 一、线性回归
  - 全部代码
-## 1、代价函数
+### 1、代价函数
 - J(\theta ) = \frac{1}{{2{\text{m}}}}\sum\limits_{i = 1}^m {{{({h_\theta }({x^{(i)}}) - {y^{(i)}})}^2}} <br>
 - 其中：{h_\theta }(x) = {\theta _0} + {\theta _1}{x_1} + {\theta _2}{x_2} + ...<br>
 - 下面就是要求出theta，使代价最小，即代表我们拟合出来的方程距离真实值最近<br>
@@ -24,7 +24,7 @@ def computeCost(X, y, theta):
 ```
 - 注意这里的X是真实数据前加了一列1，因为有theta(0)<br>
 
-## 2、梯度下降算法 
+### 2、梯度下降算法 
 - 代价函数对{{\theta _j}}求偏导得到：
   \frac{{\partial J(\theta )}}{{\partial {\theta j}}} = \frac{1}{m}\sum\limits{i = 1}^m {[({h_\theta }({x^{(i)}}) - {y^{(i)}})x_j^{(i)}]}
 - 所以对theta的更新可以写为：
