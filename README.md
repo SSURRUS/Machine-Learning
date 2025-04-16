@@ -119,6 +119,7 @@ def featureNormaliza(X):
 - {h_\theta }(x) = \frac{1}{{1 + {e^{ - x}}}}
 - 为什么不用线性回归的代价函数表示，因为线性回归的代价函数可能是非凸的，对于分类问题，使用梯度下降很难降到最小值，上面的代价函数是凸函数
 - { - \log ({h_\theta }(x))}的图像如下，即y=1时：![image](https://github.com/user-attachments/assets/0257856e-9c00-4788-ae8f-6932dc0ab82c)
+- 可以看出，当{{h_\theta }(x)}趋于1，y=1,与预测值一致，此时付出的代价cost趋于0，若{{h_\theta }(x)}趋于0，y=1,此时的代价cost值非常大，我们最终的目的是最小化代价值
 - 同理{ - \log (1 - {h_\theta }(x))}的图像如下（y=0）：
 - ![image](https://github.com/user-attachments/assets/f4f624d6-c039-4115-8bc3-5facfb64fc44)
 
