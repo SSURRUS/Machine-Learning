@@ -39,8 +39,7 @@ def computeCost(X, y, theta):
 - 所以沿着负梯度放下，函数在减小，多维情况一样
 - 实现代码
 ```
-- # 梯度下降算法
- 
+ # 梯度下降算法 
 def gradientDescent(X,y,theta,alpha,num_iters):
     m = len(y)      
     n = len(theta)
