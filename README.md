@@ -121,8 +121,8 @@ def featureNormaliza(X):
 - { - \log ({h_\theta }(x))}的图像如下，即y=1时：![image](https://github.com/user-attachments/assets/0257856e-9c00-4788-ae8f-6932dc0ab82c)
 - 可以看出，当{{h_\theta }(x)}趋于1，y=1,与预测值一致，此时付出的代价cost趋于0，若{{h_\theta }(x)}趋于0，y=1,此时的代价cost值非常大，我们最终的目的是最小化代价值
 - 同理{ - \log (1 - {h_\theta }(x))}的图像如下（y=0）：
-- ![image](https://github.com/user-attachmen![image](https://github.com/user-attachments/assets/a9c5e024-354c-4caf-b897-d74256fb1814)
-ts/assets/f4f624d6-c039-4115-8bc3-5facfb64fc44)
+- ![image](https://github.com/user-attachments/assets/0bbd27ad-d460-4422-aa78-aaec64a7d973)
+
 
 ### 2、梯度
 - 同样对代价函数求偏导：
