@@ -114,4 +114,12 @@ def featureNormaliza(X):
 - 全部代码
 ### 1、代价函数
 - ![image](https://github.com/user-attachments/assets/51a24067-be38-47ea-b2b2-787867bb0dd6)
+- 可以综合起来为：
+- J(\theta ) = - \frac{1}{m}\sum\limits_{i = 1}^m {[{y^{(i)}}\log ({h_\theta }({x^{(i)}}) + (1 - } {y^{(i)}})\log (1 - {h_\theta }({x^{(i)}})] 其中：
+- {h_\theta }(x) = \frac{1}{{1 + {e^{ - x}}}}
+- 为什么不用线性回归的代价函数表示，因为线性回归的代价函数可能是非凸的，对于分类问题，使用梯度下降很难降到最小值，上面的代价函数是凸函数
+- { - \log ({h_\theta }(x))}的图像如下，即y=1时：![image](https://github.com/user-attachments/assets/0257856e-9c00-4788-ae8f-6932dc0ab82c)
+- 同理{ - \log (1 - {h_\theta }(x))}的图像如下（y=0）：
+- ![image](https://github.com/user-attachments/assets/f4f624d6-c039-4115-8bc3-5facfb64fc44)
+
 
