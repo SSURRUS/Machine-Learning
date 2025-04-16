@@ -109,3 +109,9 @@ def featureNormaliza(X):
     #预测结果
     result = model.predict(x_test)
 ```
+
+# 二、逻辑回归
+- 全部代码
+### 1、代价函数
+- ![image](https://github.com/user-attachments/assets/51a24067-be38-47ea-b2b2-787867bb0dd6)
+
