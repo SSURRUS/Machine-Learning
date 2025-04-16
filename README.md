@@ -121,6 +121,85 @@ def featureNormaliza(X):
 - { - \log ({h_\theta }(x))}的图像如下，即y=1时：![image](https://github.com/user-attachments/assets/0257856e-9c00-4788-ae8f-6932dc0ab82c)
 - 可以看出，当{{h_\theta }(x)}趋于1，y=1,与预测值一致，此时付出的代价cost趋于0，若{{h_\theta }(x)}趋于0，y=1,此时的代价cost值非常大，我们最终的目的是最小化代价值
 - 同理{ - \log (1 - {h_\theta }(x))}的图像如下（y=0）：
-- ![image](https://github.com/user-attachments/assets/f4f624d6-c039-4115-8bc3-5facfb64fc44)
+- ![image](https://github.com/user-attachmen![image](https://github.com/user-attachments/assets/a9c5e024-354c-4caf-b897-d74256fb1814)
+ts/assets/f4f624d6-c039-4115-8bc3-5facfb64fc44)
 
+### 2、梯度
+- 同样对代价函数求偏导：
+- \frac{{\partial J(\theta )}}{{\partial {\theta j}}} = \frac{1}{m}\sum\limits{i = 1}^m {[({h_\theta }({x^{(i)}}) - {y^{(i)}})x_j^{(i)}]}
+- 可以看出来与线性回归的偏导数一致
+- 推导过程
+- ![image](https://github.com/user-attachments/assets/57b1549c-12fb-48f7-aa87-407ac43cfdec)
 
+### 3、正则化
+- 目的是为了防止过拟合
+- 在代价函数上加上一项
+  J(\theta ) = - \frac{1}{m}\sum\limits_{i = 1}^m {[{y^{(i)}}\log ({h_\theta }({x^{(i)}}) + (1 - } {y^{(i)}})\log (1 - {h_\theta }({x^{(i)}})] + \frac{\lambda }{{2m}}\sum\limits_{j = 1}^n {\theta _j^2}
+- 注意j是从1开始的，因为theta(0)为一个常数项，X中最前面一列会加上一列1，所以乘积还是theta(0),与feature没有关系，，没有必要正则化
+- 正则化的代价
+```
+# 代价函数
+def costFunction(initial_theta,X,y,inital_lambda):
+    m = len(y)
+    J = 0
+    
+    h = sigmoid(np.dot(X,initial_theta))    # 计算h(z)
+    theta1 = initial_theta.copy()           # 因为正则化j=1从1开始，不包含0，所以复制一份，前theta(0)值为0 
+    theta1[0] = 0   
+    
+    temp = np.dot(np.transpose(theta1),theta1)
+    J = (-np.dot(np.transpose(y),np.log(h))-np.dot(np.transpose(1-y),np.log(1-h))+temp*inital_lambda/2)/m   # 正则化的代价方程
+    return J
+```
+- 正则化的代价的梯度
+```
+# 计算梯度
+def gradient(initial_theta,X,y,inital_lambda):
+    m = len(y)
+    grad = np.zeros((initial_theta.shape[0]))
+    
+    h = sigmoid(np.dot(X,initial_theta))# 计算h(z)
+    theta1 = initial_theta.copy()
+    theta1[0] = 0
+
+    grad = np.dot(np.transpose(X),h-y)/m+inital_lambda/m*theta1 #正则化的梯度
+    return grad  
+```
+### 4、S型函数（即{{h_\theta }(x)}）
+- 实现代码
+```
+# S型函数    
+def sigmoid(z):
+    h = np.zeros((len(z),1))    # 初始化，与z的长度一置
+    
+    h = 1.0/(1.0+np.exp(-z))
+    return h
+```
+### 5、映射为多项式
+- 因为数据的feture可能很少，导致偏差大，所以创造出一些feture结合
+- eg:映射为2次方的形式:1 + {x_1} + {x_2} + x_1^2 + {x_1}{x_2} + x_2^2
+- 实现代码：
+```
+# 映射为多项式 
+def mapFeature(X1,X2):
+    degree = 3;                     # 映射的最高次方
+    out = np.ones((X1.shape[0],1))  # 映射后的结果数组（取代X）
+    '''
+    这里以degree=2为例，映射为1,x1,x2,x1^2,x1,x2,x2^2
+    '''
+    for i in np.arange(1,degree+1): 
+        for j in range(i+1):
+            temp = X1**(i-j)*(X2**j)    #矩阵直接乘相当于matlab中的点乘.*
+            out = np.hstack((out, temp.reshape(-1,1)))
+    return out
+```
+### 6、使用scipy的优化方法
+- 梯度下降使用scipy中的optimize中的fmin_bfgs函数
+- 调用scipy中的优化算法fmin_bfgs(拟牛顿法Broyden-Fletcher-Goldfarb-Shanno)
+- costFunction是自己实现的一个求代价的函数
+- initial_theta表示初始化的值
+- fprime指定costFunction的梯度
+- args是其余测参数，以元组的形式传入，最后会将最小化costFunction的theta返回
+```
+    result = optimize.fmin_bfgs(costFunction, initial_theta, fprime=gradient, args=(X,y,initial_lambda))    
+```
