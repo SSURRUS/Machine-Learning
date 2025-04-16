@@ -203,3 +203,49 @@ def mapFeature(X1,X2):
 ```
     result = optimize.fmin_bfgs(costFunction, initial_theta, fprime=gradient, args=(X,y,initial_lambda))    
 ```
+
+### 7、运行结果
+- data1决策边界和准确度
+- ![image](https://github.com/user-attachments/assets/b5555a5e-deff-4b89-9358-4643b66997ed)
+- ![image](https://github.com/user-attachments/assets/5f6c3450-6ae8-4b2c-af78-555b65d95a20)
+- data2决策边界和准确度
+- ![image](https://github.com/user-attachments/assets/d4c174c8-2e8c-41cd-8076-035ee58b9923)
+- ![image](https://github.com/user-attachments/assets/4a0c02a8-9efc-4b60-a11f-37eaf0095978)
+
+### 8、使用scikit-learn库中的逻辑回归模型实现
+- 导入包
+```
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.cross_validation import train_test_split
+import numpy as np
+```
+- 划分训练集和测试集
+```
+    # 划分为训练集和测试集
+    x_train,x_test,y_train,y_test = train_test_split(X,y,test_size=0.2)
+```
+- 归一化
+```
+    # 归一化
+    scaler = StandardScaler()
+    x_train = scaler.fit_transform(x_train)
+    x_test = scaler.fit_transform(x_test)
+```
+- 逻辑回归
+```
+    #逻辑回归
+    model = LogisticRegression()
+    model.fit(x_train,y_train)
+```
+-预测
+```
+    # 预测
+    predict = model.predict(x_test)
+    right = sum(predict == y_test)
+    
+    predict = np.hstack((predict.reshape(-1,1),y_test.reshape(-1,1)))   # 将预测值和真实值放在一块，好观察
+    print predict
+    print ('测试集准确率：%f%%'%(right*100.0/predict.shape[0]))          #计算在测试集上的准确度
+```
+
