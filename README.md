@@ -79,3 +79,8 @@ def featureNormaliza(X):
     return X_norm,mu,sigma
  ```
 - 注意预测的时候也需要均值归一化数据
+
+  ### 4、最终运行结果
+  - 代价随迭代次数的变化
+  ![image](https://github.com/user-attachments/assets/f1eb2473-b415-4811-abab-8abbb3593316)
+
