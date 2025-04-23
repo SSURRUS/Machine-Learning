@@ -420,3 +420,35 @@ def predict_oneVsAll(all_theta,X):
 - 10次分类，在训练集上的准确度：
   ![image](https://github.com/user-attachments/assets/8c9f951d-5708-4e9b-a65a-f07a20365972)
 
+### 6、使用scikit-learn库中的逻辑回归模型实现
+- 1、导入包
+ ```
+from scipy import io as spio
+import numpy as np
+from sklearn import svm
+from sklearn.linear_model import LogisticRegression
+```
+- 2、加载数据
+```
+    data = loadmat_data("data_digits.mat") 
+    X = data['X']   # 获取X数据，每一行对应一个数字20x20px
+    y = data['y']   # 这里读取mat文件y的shape=(5000, 1)
+    y = np.ravel(y) # 调用sklearn需要转化成一维的(5000,)
+```
+- 3、拟合模型
+```
+    model = LogisticRegression()
+    model.fit(X, y) # 拟合
+```
+- 4、预测
+```
+    predict = model.predict(X) #预测
+    
+    print u"预测准确度为：%f%%"%np.mean(np.float64(predict == y)*100)
+```
+- 5、输出结果（在训练集上的准确度）
+![image](https://github.com/user-attachments/assets/bb8add4d-a857-484b-a684-f149faa59aa8)
+
+
+
+----------
