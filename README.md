@@ -316,3 +316,37 @@ import numpy as np
     print ('测试集准确率：%f%%'%(right*100.0/predict.shape[0]))          #计算在测试集上的准确度
 ```
 
+## [逻辑回归_手写数字识别_OneVsAll](/LogisticRegression)
+- [全部代码]
+
+- ### 1、随机显示100个数字
+- 我没有使用scikit-learn中的数据集，像素是20*20px，彩色图如下
+![enter description here][9]
+灰度图：
+![enter description here][10]
+- 实现代码：
+```
+#显示100个数字
+def display_data(imgData):
+    sum=0
+    ```
+    显示100个数（若是一个一个绘制将非常的慢，可以将要画的数字整理好，放在一个矩阵中，显示这个矩阵即可）
+    - 初始化一个二维数组
+    - 将每行的数据调整成图像的矩阵，放进二维数组
+    - 显示即可
+    ```
+    pad=1
+    display_array=-np.ones(pad+10*(20+pad),pad+10*(20+pad)))
+    for i in range(10):
+        for j in range(10):
+             display_array[pad+i*(20+pad):pad+i*(20+pad)+20,pad+j*(20+pad):pad+j*(20+pad)+20] = (imgData[sum,:].reshape(20,20,order="F"))    # order=F指定以列优先，在matlab中是这样的，python中需要指定，默认以行
+             sum+=1
+    plt.isshow(display_array,camp='gray') #显示灰度图像
+    plt.axis('off')
+    plt.show()
+```
+### 2、OneVsAll
+- 如何利用逻辑回归解决多分类的问题，OneVsAll就是把当前某一类看成一类，其他所有类别看作一类，这样有成了二分类的问题了
+- 如下图，把途中的数据分成三类，先把红色的看成一类，把其他的看作另外一类，进行逻辑回归，然后把蓝色的看成一类，其他的再看成一类，以此类推...
+![enter description here][11]
+- 可以看出大于2类的情况下，有多少类就要进行多少次的逻辑回归分类
