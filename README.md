@@ -393,3 +393,25 @@ def oneVsAll(X,y,num_labels,Lambda):
 ### 4、预测
 - 之前说过，预测的结果是一个**概率值**，利用学习出来的`theta`代入预测的**S型函数**中，每行的最大值就是是某个数字的最大概率，所在的**列号**就是预测的数字的真实值,因为在分类时，所有为`0`的将`y`映射在第一列，为1的映射在第二列，依次类推
 - 实现代码：
+ ```
+- #预测
+def predict_oneVsAll(all_theta,X):
+    m=X.shape[0]
+    num_labels=all_theta.shape[0]
+    p=np.zeros((m,1))
+    X=np.hstack((np.ones((m,1)),X))  #在X最前面加一列1
+
+    h=sigmoid(np.dot(X,np.transpose(all_theta))) #预测
+
+     ```
+    返回h中每一行最大值所在的列号
+    - np.max(h, axis=1)返回h中每一行的最大值（是某个数字的最大概率）
+    - 最后where找到的最大概率所在的列号（列号即是对应的数字）
+     ```
+
+    p=np.array(np.where(h[0,:]==np.max(h,axis=1)[0]))
+    for i in np.arange(1,m):
+        t=np.array(np.where(h[i,:]==np.max(h,axis=1)[i]))
+        p=np.vstack((p,t))
+    return p
+ ```
