@@ -321,9 +321,9 @@ import numpy as np
 
 - ### 1、随机显示100个数字
 - 我没有使用scikit-learn中的数据集，像素是20*20px，彩色图如下
-![enter description here][9]
+![image](https://github.com/user-attachments/assets/0b40b070-b9da-48de-912b-2b8b56f230c2)
 灰度图：
-![enter description here][10]
+![image](https://github.com/user-attachments/assets/5807e8dd-9311-4a6b-ad4d-92ef625ee4fe)
 - 实现代码：
 ```
 #显示100个数字
