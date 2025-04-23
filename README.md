@@ -350,3 +350,46 @@ def display_data(imgData):
 - 如下图，把途中的数据分成三类，先把红色的看成一类，把其他的看作另外一类，进行逻辑回归，然后把蓝色的看成一类，其他的再看成一类，以此类推...
 ![enter description here][11]
 - 可以看出大于2类的情况下，有多少类就要进行多少次的逻辑回归分类
+ 
+### 3、手写数字识别
+- 共有0-9，10个数字，需要10次分类
+- 由于**数据集y**给出的是`0,1,2...9`的数字，而进行逻辑回归需要`0/1`的label标记，所以需要对y处理
+- 说一下数据集，前`500`个是`0`,`500-1000`是`1`,`...`,所以如下图，处理后的`y`，**前500行的第一列是1，其余都是0,500-1000行第二列是1，其余都是0....**
+![enter description here][12]
+- 然后调用**梯度下降算法**求解`theta`
+- 实现代码：
+ ```
+#求每个分类的theta，最后返回所有的all_theta
+from pickletools import optimize
+
+import numpy as np
+
+from test1 import result
+
+
+def oneVsAll(X,y,num_labels,Lambda):
+    #初始化变量值
+    m,n=X.shape
+    all_theta=np.zeros((n+1,num_labels)) # 每一列对应相应分类的theta,共10列
+    X=np.hstack((np.ones(m,1),X))        # X前补上一列1的偏置bias
+    class_y=np.zeros((m,num_labels))     # 数据的y对应0-9，需要映射为0/1的关系
+    initial_theta=np.zeros((n+1,1))      # 初始化一个分类的theta
+
+    # 映射y
+    for i in range(num_labels):
+        class_y[:,i]=np.int32(y==i).reshape(1,-1) # 注意reshape(1,-1)才可以赋值
+
+    #np.savetxt("class_y.csv",class_y[0:600,:],delimiter=',')
+
+    '''遍历每个分类，计算对应的theta值'''
+    for i in range(num_labels):
+        result=optimize().fmin_bfgs(costFunction,initial_theta,fprime=graphlib,args=(X,class_y[:,y],Lambda)) # 调用梯度下降的优化方法
+        all_theta[:i]=result.reshape(1,-1)   # 放入all_theta中
+
+    all_theta=np.transpose(all_theta)
+    return all_theta
+ ```
+
+### 4、预测
+- 之前说过，预测的结果是一个**概率值**，利用学习出来的`theta`代入预测的**S型函数**中，每行的最大值就是是某个数字的最大概率，所在的**列号**就是预测的数字的真实值,因为在分类时，所有为`0`的将`y`映射在第一列，为1的映射在第二列，依次类推
+- 实现代码：
