@@ -415,3 +415,8 @@ def predict_oneVsAll(all_theta,X):
         p=np.vstack((p,t))
     return p
  ```
+
+### 5、运行结果
+- 10次分类，在训练集上的准确度：
+  ![image](https://github.com/user-attachments/assets/8c9f951d-5708-4e9b-a65a-f07a20365972)
+
